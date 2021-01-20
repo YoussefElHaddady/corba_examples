@@ -23,7 +23,8 @@ module corbaBanque {
 1. Compile `Banque.idl` with java
    1. make sure you have this exe in `path_to/jdk/bin/idlj.exe`.
    1. make sure the `jdk/bin` is in your path env.
-   1. run this command in `path_to/project/src/`
+   1. go to `path_to/project/src/`
+   1. run the command below
 ```
 idlj -fall -v Banque.idl
 ```
@@ -105,5 +106,9 @@ java.naming.provider.url=iiop://localhost:900
 ```
 
 ## Banque Client
-
-
+1. copy > paste the `Banque.idl` and `jndi.properties` files from server to client
+1. go to `path_to/project/src/`
+1. run the command below
+```
+idlj -fall -v Banque.idl
+```
