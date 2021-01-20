@@ -112,3 +112,52 @@ java.naming.provider.url=iiop://localhost:900
 ```
 idlj -fall -v Banque.idl
 ```
+1. Create client class `src/ClientCorba.java`
+```java
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import corbaBanque.Compte;
+import corbaBanque.IBanqueRemote;
+import corbaBanque.IBanqueRemoteHelper;
+
+public class ClientCorba {
+
+	public static void main(String[] args) {
+		try {
+			Context ctx = new InitialContext();
+			
+			Object ref = ctx.lookup("BANQUE");
+			
+			IBanqueRemote stub = IBanqueRemoteHelper.narrow((org.omg.CORBA.Object) ref);
+			
+			System.out.println(stub.conversion(50));
+			
+			Compte cp = stub.getCompte(2);
+			System.out.println("code : " + cp.code);
+			System.out.println("sode : " + cp.solde);
+			
+			Compte[] cptes = stub.getComptes();
+			for (Compte c : cptes) {
+				System.out.println(c.code + " -- " + c.solde);
+			}
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
+```
+
+## Deploi & start
+1. go to `path_to/server_project/bin`
+1. run
+```
+start tnameserv
+```
+1. start your server project
+1. start your client project
+
+
+Enjoy...
